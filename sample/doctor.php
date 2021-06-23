@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="assets/js/weavysdk.js" id="weavy-client-script"></script>
-      <script>var weavy = new Weavy();</script>
+<!-- <script src="assets/js/weavysdk.js" id="weavy-client-script"></script>
+      <script>var weavy = new Weavy();</script> -->
 <head>
     <meta charset="utf-8" />
     <title>Dashboard</title>
@@ -16,17 +16,19 @@
         body.loading {
             visibility: hidden;
         }
+        table, th, td {
+        border: 2px solid black;        
+            }
+        table {
+             width: 100%;
+            }
     </style>
 
     <!-- App css -->
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="main-style-container" />
     <link href="assets/css/weavy.css" rel="stylesheet" type="text/css" />
-    <script src="https://demo.weavycloud.com/javascript/weavy.jquery.js"></script>
-    <script>
-    var sub = "e9ed3cc3-3785-6f2b-2f73-c262967fb880";
-    var weavy = new Weavy({ jwt: sub });
-    </script>
+    
 </head>
 
 <body class="loading">
@@ -194,8 +196,9 @@
                                             class="rounded-circle">
                                     </span>
                                     <span>
-                                        <span class="account-user-name">Doctor </span>
-                                         <span class="account-position">Rejin Joseph- Cardiology</span>
+                                        <span class="account-user-name">ADMIN </span>
+                                        <span class="account-position">Lifeline</span>
+                                         
                                         
                                     </span>
                                 </a>
@@ -288,36 +291,38 @@
                                     <h4 class="header-title mb-3">Reservation Status</h4>                                                                    
                                     <address class="mb-0 font-14 address-lg">
                                     <div>
-                                    <h3>                                   
+                                     
+                                    <table>
+                                    <tr>
+                                    <th><h3>ID</h3></th>
+                                    <th><h3>Name</h3></th>
+                                    <th><h3>Hospital</h3></th>
+                                    </tr>
+
+                                   
+                                    </h3> 
+                                    <h4>                                
                                     <?php
+                                         include "../db.php";
 
-                                            try {
-                                                $conn = new PDO("sqlsrv:server = tcp:lifelineserver.database.windows.net,1433; Database = lifelinesqldb", "akhil", "Inevitables@123");
-                                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                            }
-                                            catch (PDOException $e) {
-                                                print("Error connecting to SQL Server.");
-                                                die(print_r($e));
-                                            }
-
-                                            // SQL Server Extension Sample Code:
-                                            $connectionInfo = array("UID" => "akhil", "pwd" => "Inevitables@123", "Database" => "lifelinesqldb", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-                                            $serverName = "tcp:lifelineserver.database.windows.net,1433";
-                                            $conn = sqlsrv_connect($serverName, $connectionInfo);
-                                            $sql = "SELECT id, name FROM reserve";
+                                            $sql = "SELECT id, name, hospital FROM reserve";
                                             $stmt = sqlsrv_query( $conn, $sql );
                                             if( $stmt === false) {
                                                 die( print_r( sqlsrv_errors(), true) );
                                             }
 
                                             while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-                                                echo $row['id']."-".$row['name']."<br /><br />";
+                                                                 
+                                                echo "<tr><td>"."A".$row['id']."</td><td>".$row['name']."</td><td>".$row['hospital']."</td></tr>";                                               
+                                               
+
                                             }
 
                                             sqlsrv_free_stmt( $stmt);
 
                                             ?>
-                                            </h3>
+                                            </h4>
+                                            </table> 
                                             </div>
                                         
                                     </address>
@@ -363,19 +368,8 @@
                                             <span class="float-right">
                                             <?php
 
-                                            try {
-                                                $conn = new PDO("sqlsrv:server = tcp:lifelineserver.database.windows.net,1433; Database = lifelinesqldb", "akhil", "Inevitables@123");
-                                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                            }
-                                            catch (PDOException $e) {
-                                                print("Error connecting to SQL Server.");
-                                                die(print_r($e));
-                                            }
+                                            include "../db.php";
 
-                                            // SQL Server Extension Sample Code:
-                                            $connectionInfo = array("UID" => "akhil", "pwd" => "Inevitables@123", "Database" => "lifelinesqldb", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-                                            $serverName = "tcp:lifelineserver.database.windows.net,1433";
-                                            $conn = sqlsrv_connect($serverName, $connectionInfo);
                                             $sql = "SELECT count(id) as total FROM reserve";
                                             $stmt = sqlsrv_query( $conn, $sql );
                                             if( $stmt === false) {
@@ -406,16 +400,40 @@
 
                     </div>
                     <!-- end row -->
-                   <script>
-                   weavy.space({ key: "e9ed3cc3-3785-6f2b-2f73-c262967fb880" }).app({ key: "af", type: "posts", container: "#feed" });
-                   </script>
+                   
                    <div class="row">
                         <div class="col-lg-8">
                             <div class="card section-customer" data-customer-id="acme">
                                 <div class="card-body">
-                                    <h4 class="header-title mb-3">Upload Prescription</h4>
+                                    <h4 class="header-title mb-3">Hospital Status</h4>
+                                    <form method="post" action="display.php">
+                                        <div>
+                                            <select name= "status">
+                                            <option value="-1">Hospital</option>
+                                                <?php
+                                                include "../db.php";
 
-                                    <div id="weavy-files-container"></div>
+                                                    $sql = "SELECT name FROM hospital";
+                                                    $stmt = sqlsrv_query( $conn, $sql );
+                                                    if( $stmt === false) {
+                                                        die( print_r( sqlsrv_errors(), true) );
+                                                    }
+
+                                                    while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+                                                                        
+                                                        echo "<option>".$row['name']."</option>";                                              
+                                                    
+                                                    }
+
+                                                    sqlsrv_free_stmt( $stmt);
+
+                                                ?>                                            
+
+                                            </select>                                           
+
+                                        </div>
+                                    <button type="submit">Submit</button>
+
 
                                 </div>
                             </div>
