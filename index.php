@@ -67,14 +67,17 @@
 				  
                   <div id="navbar" class="navbar-collapse collapse">
                      <ul class="nav navbar-nav">
-                        <li><a class="active" href="index.html">Home</a></li>
+                        <li><a class="active" href="index.php">Home</a></li>
                         <li><a data-scroll href="#about">About us</a></li>
                         
                         <li><a data-scroll href="#doctors">Hospitals</a></li>
-                        <li><a data-scroll href="login.php">Login</a></li>
-						<li><a data-scroll href="reservation.php">Book Now</a></li>                       
-                        <li><a  href="login.php">Doctor Login</a></li>
+                        <li><a data-scroll href="login.php">AdminLogin</a></li>
+						<li><a data-scroll href="reservation.php">Book Now</a></li>                   
+                   
                         <li><a  href="login2.php">Sign in /Sign Up</a></li>
+                        <li><a  href="#feedback">Feedback</a></li>
+                        <li><a  href="#footer">Contact Us</a></li>
+
                         
 			
                         
@@ -420,7 +423,7 @@
 	 
 	  
 	  
-      <div id="getintouch" class="section wb wow fadeIn" style="padding-bottom:0;">
+      <div id="feedback" class="section wb wow fadeIn" style="padding-bottom:0;">
          <div class="container">
             <div class="heading">
                <span class="icon-logo"><img src="images/icon-logo.png" alt="#"></span>
@@ -428,33 +431,33 @@
 		    <h4> We would love to hear from you!</h4>
             </div>
          </div>
-         <div class="contact-section">
+         <div  class="contact-section">
             <div class="form-contant">
-               <form id="ajax-contact" action="assets/mailer.php" method="post">
+               <form id="ajax-contact" action="feedback.php" method="post">
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group in_name">
-                           <input type="text" class="form-control" placeholder="Name" required="required">
+                           <input type="text" class="form-control" name="name" id="name" placeholder="Name" required="required">
                         </div>
                      </div>
                      <div class="col-md-6">
                         <div class="form-group in_email">
-                           <input type="email" class="form-control" placeholder="E-mail" required="required">
+                           <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" required="required">
                         </div>
                      </div>
                      <div class="col-md-6">
                         <div class="form-group in_email">
-                           <input type="tel" class="form-control" id="phone" placeholder="Phone" required="required">
+                           <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone" required="required">
                         </div>
                      </div>
                      <div class="col-md-6">
                         <div class="form-group in_email">
-                           <input type="text" class="form-control" id="subject" placeholder="Subject" required="required">
+                           <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="required">
                         </div>
                      </div>
                      <div class="col-md-12">
                         <div class="form-group in_message"> 
-                           <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required"></textarea>
+                           <textarea class="form-control" id="message" rows="5" name="message" id="message" placeholder="Message" required="required"></textarea>
                         </div>
                         <div class="actions">
                            <input type="submit" value="Send Message" name="submit" id="submitButton" class="btn small" title="Submit Your Message!">
